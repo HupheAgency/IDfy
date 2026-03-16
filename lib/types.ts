@@ -30,9 +30,39 @@ export interface Idea {
   equity_offered_percent: number | null
   status: string
   timestamp_hash: string | null
+  layer: number | null
+  cover_image_url: string | null
+  follower_count?: number
   created_at: string
   updated_at: string
   profiles?: Profile
+}
+
+export interface IdeaFollower {
+  id: string
+  idea_id: string
+  email: string
+  user_id: string | null
+  followed_at: string
+}
+
+export interface IdeaInvitation {
+  id: string
+  idea_id: string
+  invited_by: string
+  invited_email: string
+  invited_user_id: string | null
+  status: string
+  created_at: string
+}
+
+export interface FollowerNotification {
+  id: string
+  idea_id: string
+  subject: string
+  body: string
+  sent_at: string
+  sent_by: string
 }
 
 export interface NDAAcceptance {

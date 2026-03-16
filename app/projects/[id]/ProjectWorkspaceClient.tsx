@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import ActivityDot from '@/components/ui/ActivityDot'
+import SharePanel from '@/components/projects/SharePanel'
 import { Message, Task, Decision, ProjectMember, Profile } from '@/lib/types'
 
 interface ProjectWorkspaceClientProps {
@@ -15,7 +16,7 @@ interface ProjectWorkspaceClientProps {
   isMember: boolean
 }
 
-type Tab = 'chat' | 'tasks' | 'decisions'
+type Tab = 'chat' | 'tasks' | 'decisions' | 'share'
 
 export default function ProjectWorkspaceClient({
   project,
@@ -242,6 +243,7 @@ export default function ProjectWorkspaceClient({
             { key: 'chat', label: 'GROUP CHAT' },
             { key: 'tasks', label: 'TASKS' },
             { key: 'decisions', label: 'DECISIONS' },
+            { key: 'share', label: 'SHARE' },
           ] as { key: Tab; label: string }[]).map((tab) => (
             <button
               key={tab.key}
@@ -465,6 +467,22 @@ export default function ProjectWorkspaceClient({
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Share panel */}
+        {activeTab === 'share' && idea && (
+          <div className="flex-1 overflow-y-auto p-6">
+            <SharePanel
+              idea={{
+                id: idea.id,
+                teaser: idea.teaser || '',
+                category: idea.category || null,
+                equity_offered_percent: idea.equity_offered_percent ?? null,
+              }}
+              projectName={project.name || idea.teaser?.slice(0, 40) || 'Project'}
+              appUrl={typeof window !== 'undefined' ? window.location.origin : ''}
+            />
           </div>
         )}
       </div>

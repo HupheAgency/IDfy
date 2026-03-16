@@ -10,10 +10,10 @@ interface DashboardSidebarProps {
 }
 
 const navItems = [
-  { href: '/dashboard', label: 'FEED', icon: '◈' },
-  { href: '/dashboard/my-ideas', label: 'MY IDEAS', icon: '◎' },
-  { href: '/dashboard/my-projects', label: 'MY PROJECTS', icon: '◉' },
-  { href: '/profile', label: 'PROFILE', icon: '◐' },
+  { href: '/dashboard', label: 'Feed', icon: '◈' },
+  { href: '/dashboard/my-ideas', label: 'My Ideas', icon: '◎' },
+  { href: '/dashboard/my-projects', label: 'My Projects', icon: '◉' },
+  { href: '/profile', label: 'Profile', icon: '◐' },
 ]
 
 export default function DashboardSidebar({ profile }: DashboardSidebarProps) {
@@ -31,72 +31,113 @@ export default function DashboardSidebar({ profile }: DashboardSidebarProps) {
   const initials = name.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2)
 
   return (
-    <aside className="w-60 flex-shrink-0 bg-grey border-r border-dark flex flex-col h-screen sticky top-0">
+    <aside
+      style={{
+        width: 240, flexShrink: 0,
+        background: '#FFFFFF', borderRight: '1px solid #E5E3DC',
+        display: 'flex', flexDirection: 'column',
+        height: '100vh', position: 'sticky', top: 0,
+      }}
+    >
       {/* Logo */}
-      <div className="p-6 border-b border-dark">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="w-1 h-6 bg-accent" />
-          <span className="font-syne font-extrabold text-xl text-white tracking-tight">IDfy</span>
+      <div style={{ padding: '1.4rem 1.25rem', borderBottom: '1px solid #E5E3DC' }}>
+        <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+          <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.15rem', color: '#111' }}>
+            <span style={{ color: '#3B6B4A' }}>ID</span>fy
+          </span>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <div className="space-y-1">
+      <nav style={{ flex: 1, padding: '1rem 0.75rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
           {navItems.map((item) => {
             const isActive = pathname === item.href
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 transition-colors duration-150 ${
-                  isActive
-                    ? 'bg-dark text-accent'
-                    : 'text-mid hover:text-white hover:bg-dark'
-                }`}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '0.6rem',
+                  padding: '0.6rem 0.75rem',
+                  borderRadius: 10,
+                  textDecoration: 'none',
+                  background: isActive ? '#EEF5F0' : 'transparent',
+                  color: isActive ? '#3B6B4A' : '#999999',
+                  transition: 'background 0.15s, color 0.15s',
+                }}
               >
-                <span className="text-base">{item.icon}</span>
-                <span className="font-mono text-[11px] uppercase tracking-[0.15em]">{item.label}</span>
+                <span style={{ fontSize: '0.9rem', lineHeight: 1 }}>{item.icon}</span>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.85rem', fontWeight: isActive ? 500 : 400 }}>
+                  {item.label}
+                </span>
               </Link>
             )
           })}
         </div>
 
-        <div className="mt-6 pt-6 border-t border-dark">
+        <div style={{ marginTop: '1.2rem', paddingTop: '1.2rem', borderTop: '1px solid #E5E3DC' }}>
           <Link
             href="/ideas/new"
-            className="flex items-center justify-center gap-2 w-full bg-accent text-black py-2.5 px-3 hover:opacity-90 transition-opacity"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+              background: '#111', color: '#F7F6F3',
+              borderRadius: 100, padding: '0.65rem 1rem',
+              fontFamily: "'DM Sans', sans-serif", fontSize: '0.82rem', fontWeight: 500,
+              textDecoration: 'none', transition: 'background 0.2s',
+            }}
           >
-            <span className="font-mono text-[11px] font-medium uppercase tracking-[0.15em]">+ FILE IDEA</span>
+            + File an idea
           </Link>
         </div>
       </nav>
 
       {/* User section */}
-      <div className="p-4 border-t border-dark">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-dark border border-dark flex items-center justify-center flex-shrink-0">
-            <span className="font-mono text-[11px] text-mid">{initials}</span>
+      <div style={{ padding: '0.9rem 1rem', borderTop: '1px solid #E5E3DC' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+          <div
+            style={{
+              width: 32, height: 32, borderRadius: '50%',
+              background: '#EEF5F0', border: '1px solid #E5E3DC',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}
+          >
+            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.7rem', fontWeight: 500, color: '#3B6B4A' }}>
+              {initials}
+            </span>
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-mono text-xs text-white truncate">{name}</p>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.82rem', fontWeight: 400, color: '#111', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {name}
+            </p>
             {profile?.is_admin && (
-              <p className="font-mono text-[10px] text-accent">ADMIN</p>
+              <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.68rem', color: '#3B6B4A', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                Admin
+              </p>
             )}
           </div>
         </div>
         <button
           onClick={handleLogout}
-          className="w-full font-mono text-[10px] uppercase tracking-widest text-mid hover:text-white transition-colors text-left px-3 py-1.5 hover:bg-dark"
+          style={{
+            width: '100%', fontFamily: "'DM Sans', sans-serif", fontSize: '0.78rem',
+            color: '#CCCCCC', background: 'transparent', border: 'none',
+            textAlign: 'left', padding: '0.35rem 0.75rem', borderRadius: 8, cursor: 'pointer',
+            transition: 'color 0.15s',
+          }}
         >
-          SIGN OUT
+          Sign out
         </button>
         {profile?.is_admin && (
           <Link
             href="/admin"
-            className="mt-1 block w-full font-mono text-[10px] uppercase tracking-widest text-mid hover:text-accent transition-colors text-left px-3 py-1.5 hover:bg-dark"
+            style={{
+              display: 'block', fontFamily: "'DM Sans', sans-serif", fontSize: '0.78rem',
+              color: '#CCCCCC', padding: '0.35rem 0.75rem', borderRadius: 8,
+              textDecoration: 'none',
+            }}
           >
-            ADMIN →
+            Admin →
           </Link>
         )}
       </div>
