@@ -15,6 +15,7 @@ export default async function DashboardPage({
     .from('ideas')
     .select('*, profiles(*)')
     .eq('status', 'active')
+    .in('layer', [3])
     .order('created_at', { ascending: false })
 
   if (searchParams.category) {
@@ -23,37 +24,47 @@ export default async function DashboardPage({
 
   const { data: ideas } = await query
 
-  const categories = ['Technology', 'Media', 'Health', 'Finance', 'Sustainability', 'Creative', 'Other']
+  const categories = ['Technology', 'Business', 'Creative', 'Science', 'Social', 'Other']
 
   return (
-    <div className="p-8 md:p-12">
+    <div style={{ padding: '2rem 2.5rem' }}>
       {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-[3px] h-6 bg-accent" />
-        <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-mid">IDEA FEED</span>
+      <div style={{ marginBottom: '1.5rem' }}>
+        <h1 style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.5rem', color: '#111', letterSpacing: '-0.03em' }}>
+          Idea Feed
+        </h1>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '0.85rem', color: '#999', marginTop: '0.2rem' }}>
+          Open ideas looking for contributors. Layer 3 only.
+        </p>
       </div>
 
-      {/* Filter bar */}
-      <div className="flex items-center gap-3 mb-8 flex-wrap">
+      {/* Category filter bar */}
+      <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
         <Link
           href="/dashboard"
-          className={`font-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border transition-colors ${
-            !searchParams.category
-              ? 'border-accent text-accent'
-              : 'border-dark text-mid hover:border-white hover:text-white'
-          }`}
+          style={{
+            fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', fontWeight: 400,
+            borderRadius: 100, padding: '0.4rem 1rem',
+            background: !searchParams.category ? '#3B6B4A' : '#fff',
+            color: !searchParams.category ? '#fff' : '#999',
+            border: `1px solid ${!searchParams.category ? '#3B6B4A' : '#E5E3DC'}`,
+            textDecoration: 'none', transition: 'all 0.15s',
+          }}
         >
-          ALL
+          All
         </Link>
         {categories.map((cat) => (
           <Link
             key={cat}
             href={`/dashboard?category=${cat}`}
-            className={`font-mono text-[10px] uppercase tracking-widest px-3 py-1.5 border transition-colors ${
-              searchParams.category === cat
-                ? 'border-accent text-accent'
-                : 'border-dark text-mid hover:border-white hover:text-white'
-            }`}
+            style={{
+              fontFamily: "'DM Sans', sans-serif", fontSize: '0.8rem', fontWeight: 400,
+              borderRadius: 100, padding: '0.4rem 1rem',
+              background: searchParams.category === cat ? '#3B6B4A' : '#fff',
+              color: searchParams.category === cat ? '#fff' : '#999',
+              border: `1px solid ${searchParams.category === cat ? '#3B6B4A' : '#E5E3DC'}`,
+              textDecoration: 'none', transition: 'all 0.15s',
+            }}
           >
             {cat}
           </Link>
@@ -62,17 +73,28 @@ export default async function DashboardPage({
 
       {/* Ideas grid */}
       {!ideas || ideas.length === 0 ? (
-        <div className="border border-dark p-12 text-center">
-          <p className="font-mono text-sm text-mid mb-6">No ideas in the feed yet.</p>
+        <div
+          style={{
+            background: '#fff', border: '1px solid #E5E3DC', borderRadius: 16,
+            padding: '3rem 2rem', textAlign: 'center',
+          }}
+        >
+          <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '0.9rem', color: '#999', marginBottom: '1.2rem' }}>
+            No open ideas in this category yet.
+          </p>
           <Link
             href="/ideas/new"
-            className="inline-block bg-accent text-black font-mono text-[11px] uppercase tracking-widest px-6 py-3 hover:opacity-90 transition-opacity"
+            style={{
+              background: '#111', color: '#F7F6F3', borderRadius: 100,
+              padding: '0.65rem 1.4rem', fontSize: '0.83rem', fontWeight: 500,
+              fontFamily: "'DM Sans', sans-serif", textDecoration: 'none',
+            }}
           >
             File the first one
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.9rem' }}>
           {(ideas as (Idea & { profiles?: Profile })[]).map((idea) => (
             <IdeaCard key={idea.id} idea={idea} />
           ))}

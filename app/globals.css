@@ -1,16 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --black: #0A0A0A;
-  --white: #F5F2ED;
-  --accent: #C8F03A;
-  --grey: #1E1E1E;
-  --dark: #2A2A2A;
-  --mid: #6B6B6B;
+  --bg:         #F7F6F3;
+  --bg-card:    #FFFFFF;
+  --text:       #111111;
+  --text-mid:   #999999;
+  --text-light: #CCCCCC;
+  --border:     #E5E3DC;
+  --accent:     #3B6B4A;
+  --accent-lt:  #EEF5F0;
+  --accent-mid: #7BC98A;
+  --dark:       #111111;
 }
 
 * {
@@ -22,67 +26,47 @@ html {
 }
 
 body {
-  background-color: #0A0A0A;
-  color: #F5F2ED;
-  font-family: 'DM Mono', monospace;
-  cursor: none;
-}
-
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background-color: #C8F03A;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: width 0.15s ease, height 0.15s ease, margin 0.15s ease;
-  top: 0;
-  left: 0;
-}
-
-.cursor-dot.expanded {
-  width: 24px;
-  height: 24px;
-  margin-left: -8px;
-  margin-top: -8px;
+  background-color: #F7F6F3;
+  color: #111111;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
 }
 
 ::selection {
-  background-color: #C8F03A;
-  color: #0A0A0A;
+  background-color: #3B6B4A;
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: #0A0A0A;
+  background: #F7F6F3;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2A2A2A;
+  background: #E5E3DC;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C8F03A;
+  background: #3B6B4A;
 }
 
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-.delay-4 { animation-delay: 0.8s; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.6s; }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes ticker {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
@@ -92,31 +76,66 @@ body {
   animation: ticker 30s linear infinite;
 }
 
-.animate-fade-up-stagger {
+.animate-fade-up {
   opacity: 0;
   animation: fadeUp 0.7s ease-out forwards;
 }
 
+.section-hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Light form inputs */
 input, textarea, select {
-  background-color: #1E1E1E;
-  color: #F5F2ED;
-  border: 1px solid #2A2A2A;
-  font-family: 'DM Mono', monospace;
+  background-color: #FFFFFF;
+  color: #111111;
+  border: 1px solid #E5E3DC;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
   outline: none;
-  border-radius: 0;
+  border-radius: 12px;
   font-size: 0.875rem;
 }
 
 input:focus, textarea:focus, select:focus {
-  border-color: #C8F03A;
+  border-color: #3B6B4A;
 }
 
 input::placeholder, textarea::placeholder {
-  color: #6B6B6B;
+  color: #CCCCCC;
 }
 
 select option {
-  background-color: #1E1E1E;
+  background-color: #FFFFFF;
+  color: #111111;
+}
+
+/* Range input accent */
+input[type="range"] {
+  accent-color: #3B6B4A;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* Pill button base */
+.btn-pill {
+  border-radius: 100px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: background 0.2s, border-color 0.2s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 @layer utilities {
@@ -125,6 +144,9 @@ select option {
   }
   .font-syne {
     font-family: 'Syne', sans-serif;
+  }
+  .font-sans-custom {
+    font-family: 'DM Sans', sans-serif;
   }
   .font-mono-custom {
     font-family: 'DM Mono', monospace;
