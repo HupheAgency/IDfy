@@ -185,7 +185,7 @@ const PLACEHOLDER_IDEAS: Idea[] = [
 export default function LandingPage() {
   const [heroVisible, setHeroVisible] = useState(false)
   const [gridIdeas, setGridIdeas] = useState<Idea[]>(PLACEHOLDER_IDEAS)
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([])
+  const sectionRefs = useRef<(HTMLElement | null)[]>([])
 
   useEffect(() => {
     const timer = setTimeout(() => setHeroVisible(true), 80)

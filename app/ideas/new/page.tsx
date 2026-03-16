@@ -357,6 +357,7 @@ export default function NewIdeaPage() {
                 }}
               >
                 {coverPreview ? (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={coverPreview} alt="Cover preview" style={{ width: '100%', borderRadius: 8, objectFit: 'cover', maxHeight: 160 }} />
                 ) : (
                   <p style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: '0.83rem', color: '#CCCCCC' }}>
@@ -561,6 +562,7 @@ export default function NewIdeaPage() {
                 </p>
               )}
               {coverPreview && (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={coverPreview} alt="Cover" style={{ width: '100%', borderRadius: 8, objectFit: 'cover', maxHeight: 100, marginTop: '0.5rem' }} />
               )}
             </div>

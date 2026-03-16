@@ -25,7 +25,7 @@ export default function ProjectWorkspaceClient({
   initialMessages,
   tasks: initialTasks,
   decisions: initialDecisions,
-  isMember,
+  isMember: _isMember,
 }: ProjectWorkspaceClientProps) {
   const [activeTab, setActiveTab] = useState<Tab>('chat')
   const [messages, setMessages] = useState(initialMessages)
@@ -72,7 +72,7 @@ export default function ProjectWorkspaceClient({
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [project.id])
+  }, [project.id, supabase])
 
   // Scroll to bottom on new message
   useEffect(() => {
