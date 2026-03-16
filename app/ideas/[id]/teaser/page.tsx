@@ -34,9 +34,6 @@ export default async function TeaserPage({ params }: { params: { id: string } })
   })
 
   const bgColor = CATEGORY_COLORS[idea.category || 'Other'] || '#E5E3DC'
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://i-dfy.vercel.app'
-  const shareUrl = `${appUrl}/ideas/${idea.id}/teaser`
-
   return (
     <div style={{ minHeight: '100vh', background: '#F7F6F3' }}>
       {/* Nav */}

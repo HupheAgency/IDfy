@@ -424,7 +424,7 @@ export default function NewIdeaPage() {
               </div>
               <div>
                 <label style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#3B6B4A', display: 'block', marginBottom: '0.5rem' }}>
-                  Why doesn't it exist yet?
+                  Why doesn&apos;t it exist yet?
                 </label>
                 <textarea
                   value={whyItDoesntExist}
