@@ -365,11 +365,11 @@ export default function LandingPage() {
             gap: '0.7rem',
           }}
         >
-          <IdeaTile idea={tiles[0]} tall style={{ gridColumn: '1', gridRow: '1 / 3' }} />
-          <IdeaTile idea={tiles[1]} style={{ gridColumn: '2', gridRow: '1' }} />
-          <IdeaTile idea={tiles[2]} style={{ gridColumn: '3', gridRow: '1' }} />
-          <IdeaTile idea={tiles[3]} style={{ gridColumn: '2', gridRow: '2' }} />
-          <IdeaTile idea={tiles[4]} style={{ gridColumn: '3', gridRow: '2' }} />
+          <div style={{ gridColumn: '1', gridRow: '1 / 3' }}><IdeaTile idea={tiles[0]} tall /></div>
+          <div style={{ gridColumn: '2', gridRow: '1' }}><IdeaTile idea={tiles[1]} /></div>
+          <div style={{ gridColumn: '3', gridRow: '1' }}><IdeaTile idea={tiles[2]} /></div>
+          <div style={{ gridColumn: '2', gridRow: '2' }}><IdeaTile idea={tiles[3]} /></div>
+          <div style={{ gridColumn: '3', gridRow: '2' }}><IdeaTile idea={tiles[4]} /></div>
         </div>
       </div>
 
